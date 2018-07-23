@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Immersive Scene</title>
-    <meta name="description" content="A-Frame - Clubber">
+<script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
 
     <script src="lib/aframe.js"></script>
     <script src="../dist/aframe-clubber.min.js"></script>
@@ -13,16 +13,15 @@
 
   </head>
   <body>
-     <audio id="audio" src='https://api.soundcloud.com/tracks/423762507/stream?client_id=56c4f3443da0d6ce6dcb60ba341c4e8d' autoplay crossOrigin = "anonymous"></audio>
     <a-scene compositor  bloom="intensity: 1.0;"
       clubbers = "src: #audio"
-      clubber = "debug:true; exec: bloom.intensity = 0.66 * prev + high[3] * (1 - low[3]) # bloom.threxp = 4  + 4 * mid[0] + 8 * high[0]"
-    >
+      clubber = "debug:true; exec: bloom.intensity = 0.66 * prev + high[3] * (1 - low[3]) # bloom.threxp = 4  + 4 * mid[0] + 8 * high[0]">
       <a-assets>
         <video id="video" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
                autoplay loop ></video>
-
+        <audio id="audio" src='https://api.soundcloud.com/tracks/423762507/stream?client_id=56c4f3443da0d6ce6dcb60ba341c4e8d' crossOrigin = "anonymous"></audio>
       </a-assets>
+
       <a-entity position="0 1.8 5">
         <a-entity camera="far:6000; near:1;" look-controls>
           <a-cursor></a-cursor>
