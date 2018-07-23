@@ -71,9 +71,9 @@
 	      mute: this.data.mute
 	    });
 	    this.clubber.listen(d.src);
-	    this.low = this.clubber.band({ from: d.lowRange[0], to: d.lowRange[1], smooth: d.lowSmooth });
-	    this.mid = this.clubber.band({ from: d.midRange[0], to: d.midRange[1], smooth: d.midSmooth });
-	    this.high = this.clubber.band({ from: d.highRange[0], to: d.highRange[1], smooth: d.highSmooth });
+	    this.low = this.clubber.band({ from: d.lowRange[0], to: d.lowRange[0.5], smooth: d.lowSmooth });
+	    this.mid = this.clubber.band({ from: d.midRange[0], to: d.midRange[0.5], smooth: d.midSmooth });
+	    this.high = this.clubber.band({ from: d.highRange[0], to: d.highRange[0.5], smooth: d.highSmooth });
 	  },
 
 	  updateClubber: function (time) {
@@ -146,10 +146,6 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	/*
-	* clubber.js 1.0.0 Copyright (c) 2016, Yannis Gravezas All Rights Reserved.
-	* Available via the MIT license. More on http://github.com/wizgrav/clubber.
-	*/
 
 	var Clubber = function (config) {
 	  if (!config) config = {};
