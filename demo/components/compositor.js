@@ -1,6 +1,3 @@
-/* global AFRAME THREE */
-// The compositor. Blends the blurred renderTarget from the bloom component.
-// It also checks opacity and converts parts of the frame to ascii(Alpha masking).
 AFRAME.registerSystem('compositor', {
 
   schema: { enable: { default: true } },
@@ -36,7 +33,6 @@ AFRAME.registerSystem('compositor', {
     this.needsConfig = true;
   },
 
-  // Whenever the postproc setup changes, the compositor shader is recompiled
   config: function () {
     var scene = this.sceneEl;
     var behaviors = scene.behaviors.tock;
@@ -75,16 +71,15 @@ AFRAME.registerSystem('compositor', {
     });
   },
 
-  // Traverse scene objects and set opacity based on the postOpacity attribute set by the pulse component.
   tick: function (time) {
     var scene = this.sceneEl;
-    var size= this.sceneEl.renderer.getSize();    
-    var rt = this.sceneEl.renderTarget;    
+    var size= this.sceneEl.renderer.getSize();
+    var rt = this.sceneEl.renderTarget;
     if (!rt) { return; }
     if (size.width != rt.width || size.height != rt.height) {
       rt.setSize(size.width, size.height);
     }
-        
+
     scene.object3D.traverse(function (obj) {
       var material = obj.material;
       if (material && material.postOpacity !== undefined) {

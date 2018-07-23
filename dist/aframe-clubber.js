@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* 
+	/*
 	* Copyright (c) 2016, Yannis Gravezas All Rights Reserved. Available via the MIT license.
 	*/
 	var Clubber = __webpack_require__(1);
@@ -60,9 +60,9 @@
 	    lowSmooth: {type: "array", default: [0.1,0.1,0.1,0.16]},
 	    midSmooth: {type: "array", default: [0.1,0.1,0.1,0.16]},
 	    highSmooth: {type: "array", default: [0.1,0.1,0.1,0.16]},
-	    
+
 	  },
-	  
+
 	  init: function () {
 	    var d = this.data;
 	    this.clubber = new Clubber({
@@ -75,7 +75,7 @@
 	    this.mid = this.clubber.band({ from: d.midRange[0], to: d.midRange[1], smooth: d.midSmooth });
 	    this.high = this.clubber.band({ from: d.highRange[0], to: d.highRange[1], smooth: d.highSmooth });
 	  },
-	  
+
 	  updateClubber: function (time) {
 	    if (time === this.lastTime) return;
 	    this.clubber.update(time);
@@ -88,7 +88,7 @@
 	    exec: { type: "string", default: null },
 	    debug: { default: false }
 	  },
-	  
+
 	  update: function () {
 	    var run = ["var val;", "var mesh = this.getObject3D('mesh');"];
 	    if(!this.data.exec) return;
@@ -103,7 +103,7 @@
 	      run.push("prev = values[" + vidx + "];");
 	      run.push("values[" + vidx + "] = prev = " + statement + ";");
 	      vidx++;
-	      
+
 	      tok.forEach(function (k) {
 	        k = k.replace(" ","");
 	        if (k[0] === ".") {
@@ -115,7 +115,7 @@
 	            run.push(["var ", val, ";"].join(""));
 	            return;
 	          }
-	        
+
 	          if (args.length) {
 	            args.forEach(function (a) {
 	              a=a.replace(" ", "");
@@ -132,11 +132,11 @@
 	    if (this.data.debug) console.log(code);
 	    this.func = Function("time","values","low","mid","high",code);
 	  },
-	  
+
 	  tick: function (time, delta) {
 	    var s = this.el.sceneEl.systems.clubbers;
 	    if (!this.func || !s) return;
-	    
+
 	    s.updateClubber(time);
 	    this.func.call(this.el, time, this.values, s.low(), s.mid(), s.high());
 	  }
@@ -146,7 +146,7 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	/* 
+	/*
 	* clubber.js 1.0.0 Copyright (c) 2016, Yannis Gravezas All Rights Reserved.
 	* Available via the MIT license. More on http://github.com/wizgrav/clubber.
 	*/
@@ -157,17 +157,17 @@
 	  this.analyser = this.audioCtx.createAnalyser();
 	  this.analyser.fftSize = config.size || 2048;
 	  this.bufferLength = this.analyser.frequencyBinCount;
-	  
+
 	  this.thresholdFactor = config.thresholdFactor || 0.66;
-	  
+
 	  if (!config.mute) this.analyser.connect(this.audioCtx.destination);
-	  
+
 	  this.data = new Uint8Array(this.bufferLength);
 	  this.keys = new Uint8Array(this.bufferLength);
 	  this.notes = new Uint16Array(160);
 	  this.thresholds = new Uint8Array(160);
 	  this.weights = new Uint8Array(160);
-	  
+
 	  function freq2midi (freq){
 	    var r=1.05946309436;
 	    var lala=523.251;
@@ -193,7 +193,7 @@
 	        supinf=-1;
 	        flag=1;
 	        ref1=ref;
-	    }	
+	    }
 
 	    while (notetest>ref){
 	        ref=Math.floor(1000*ref*r)/1000;
@@ -237,7 +237,7 @@
 	    this.keys[i] = key;
 	    this.weights[key]++;
 	  }
-	  
+
 	  this.count = 0;
 	};
 
@@ -256,14 +256,14 @@
 	    }
 	  } else {
 	    config = defaults;
-	  } 
-	  
+	  }
+
 	  var obj = {
 	    count: 0,
 	    scope: this,
 	    config:config,
 	    data: new Float32Array(4)
-	  };  
+	  };
 
 	  return function (config) {
 	    if (config) {
@@ -272,11 +272,11 @@
 	      }
 	    }
 	    config = obj.config;
-	    
+
 	    if (obj.time > obj.scope.time) {
 	      return obj.data;
 	    }
-	    
+
 	    var s = config.smooth, arr = obj.data;
 	    var idx=-1, val=0, osum=0, vsum=0, nsum = 0, cnt=0;
 
@@ -306,7 +306,7 @@
 	      if (f < 0) { f = v > o ? Math.abs(obj.config.snap) : -f; }
 	      return f * v + (1 - f) * o;
 	    }
-	    
+
 	    if (obj.time === undefined) obj.time = obj.scope.time;
 	    for (var t = obj.time, step = obj.config.step, tmax = obj.scope.time + step ; t <= tmax; t += step) {
 	      arr[0] = smooth((idx % 12)/12, arr[0], s[0]);
@@ -316,7 +316,7 @@
 	    }
 	    obj.time = t;
 	    obj.count = obj.scope.count;
-	    
+
 	    return arr;
 	  };
 	};
@@ -336,7 +336,7 @@
 	  }
 	  for(i = 0; i < this.notes.length;i++){
 	    this.notes[i] /= this.weights[i];
-	    
+
 	    // Adaptive threshold, you can tune it via Clubber.thresholdFactor with a 0.0 - 1.0 value.
 	    var tf = this.thresholdFactor;
 	    this.thresholds[i] = 128 + Math.max( Math.min(1, Math.max(tf, 0)) * Math.max(0, this.notes[i] - 128), this.thresholds[i]);

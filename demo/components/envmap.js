@@ -1,5 +1,3 @@
-/* global AFRAME THREE */
-
 AFRAME.registerComponent('envmap', {
   dependencies: ["geometry", "material"],
   update: function () {

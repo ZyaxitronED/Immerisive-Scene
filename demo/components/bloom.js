@@ -1,10 +1,3 @@
-/* global AFRAME THREE */
-
-/*
-Kawase bloom, described here
-https://software.intel.com/en-us/blogs/2014/07/15/an-investigation-of-fast-real-time-gpu-based-image-blur-algorithms
-*/
-
 AFRAME.registerComponent('bloom', {
 
   schema: {
@@ -79,7 +72,7 @@ AFRAME.registerComponent('bloom', {
     var scene = el.sceneEl;
     if (!scene.renderTarget) { return; }
     var rts = this.getTargets();
-    
+
     var uns = this.brightMaterial.uniforms;
     var rt = scene.renderTarget;
     // Bright pass: isolate and highlight the brightest parts of the scene.
