@@ -24,7 +24,9 @@
 
       </a-assets>
       <a-entity position="0 1.8 5">
-        <a-entity camera="far:6000; near:1;" look-controls></a-entity>
+        <a-entity camera="far:6000; near:1;" look-controls>
+          <a-cursor></a-cursor>
+        </a-entity>
       </a-entity>
       <a-sphere  envmap=""  rotation="0 180 0" color="white" position="0 -10 -40" radius="10"
           clubber="debug:true; exec: scale.x.y.z = 0.33 + 0.66 * Math.abs(mid[1] - high[1]) + Math.min(low[3],mid[3]) # .material.postOpacity = Math.max(high[3], low[3])" ></a-sphere>
