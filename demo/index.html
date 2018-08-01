@@ -19,21 +19,19 @@
       <a-assets>
         <video id="video" src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/"
                autoplay loop ></video>
-          <audio id="audio" src='https://api.soundcloud.com/tracks/423762507/stream?client_id=56c4f3443da0d6ce6dcb60ba341c4e8d' crossOrigin = "anonymous"></audio>
+          <audio id="audio" src="https://api.soundcloud.com/tracks/476938752/stream?client_id=56c4f3443da0d6ce6dcb60ba341c4e8d; on: click" crossOrigin = "anonymous"></audio>
       </a-assets>
 
       <a-entity position="0 1.8 4">
              <a-entity camera look-controls mouse-cursor>
-               <a-cursor fuse="true"></a-cursor>
+               <a-cursor></a-cursor>
              </a-entity>
            </a-entity>
 
       <a-sphere  envmap=""  rotation="0 180 0" color="white" position="0 -10 -40" radius="10"
           clubber="debug:true; exec: scale.x.y.z = 0.33 + 0.66 * Math.abs(mid[1] - high[1]) + Math.min(low[3],mid[3]) # .material.postOpacity = Math.max(high[3], low[3])"></a-sphere>
       <a-videosphere 'material' src="#video" rotation="0 180 0"
-          clubber="debug:true; exec: .material.postOpacity = 1 - Math.min(high[2], low[2]) "
-          event-set__enter="_event: mouseenter; playSound: #audio"
-          event-set__leave="_event: mouseleave; stopSound: #audio"></a-videosphere>
+          clubber="debug:true; exec: .material.postOpacity = 1 - Math.min(high[2], low[2]) "></a-videosphere>
 
     </a-scene>
   </body>
