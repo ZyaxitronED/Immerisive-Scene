@@ -25,7 +25,6 @@
   </head>
   <body>
 
-    <a-entity id="scene1">
     <a-scene compositor  bloom="intensity: 1.0;"
       clubbers = "src: #audio"
       clubber = "debug:true; exec: bloom.intensity = 0.66 * prev + high[3] * (1 - low[3]) # bloom.threxp = 4  + 4 * mid[0] + 8 * high[0]">
@@ -34,7 +33,7 @@
                autoplay loop ></video>
         <audio id="audio" src="https://api.soundcloud.com/tracks/380427692/stream?client_id=56c4f3443da0d6ce6dcb60ba341c4e8d" autoplay crossOrigin = "anonymous"></audio>
       </a-assets>
-
+      <a-entity id="scene1">
       <a-entity position="0 1.8 4">
              <a-entity camera look-controls mouse-cursor>
                <a-cursor></a-cursor>
